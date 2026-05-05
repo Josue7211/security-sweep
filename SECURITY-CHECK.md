@@ -3,6 +3,15 @@ name: security-check
 description: Surgical security scan on recently changed files only. Same 100% quality as /security-sweep (confidence scores, exploit PoCs, attack chains, defense depth) but scoped to recent changes. 5 Opus agents run in parallel on the diff. For infrastructure projects, detects config/firewall/Docker changes and runs targeted infra checks with blast radius verification. Use after features, bug fixes, or any code change. Use /security-sweep for full codebase audits.
 ---
 
+## Codex Compatibility
+
+When this skill runs inside Codex, obey the active Codex system/developer instructions above this skill. In particular:
+
+- Do not spawn subagents unless the user explicitly asked for subagents, delegation, or parallel agent work in the current task. If subagents are not authorized, run the same checklist directly in the main context and keep the report scoped.
+- Use the available Codex agent roles and tools instead of Claude-specific model names, slash commands, or `run_in_background` syntax. Treat `Opus`/`Haiku` labels as intent hints for reasoning depth, not literal model requirements.
+- Never SSH, run destructive commands, or touch external infrastructure unless the current user request and repository instructions authorize it.
+- Preserve the same output guarantees: evidence, file:line references, confidence, exploitability notes for HIGH+, remediation, tests, and follow-up verification.
+
 # Security Check (Surgical)
 
 Same rigor as /security-sweep. Same confidence scores, exploit PoCs, attack chains. Just scoped to what changed.
