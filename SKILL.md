@@ -3,6 +3,15 @@ name: security-sweep
 description: Pentagon-grade red team security scan. Auto-detects project type (app vs infrastructure vs hybrid). For app projects: 19 agents in two tiers scan auth, database, AI, network, frontend, IPC, infra, runtime, crypto, WebView, supply chain. For infrastructure projects: 8 agents SSH into live machines to audit Docker, firewalls, CrowdSec, Tailscale, SSH configs, backups, DNS/TLS, secrets. Hybrid mode runs both. Includes live dependency audits, SSH-based RLS verification, OWASP Top 10, secrets scanning, endpoint fuzzing, silent failure hunting, test coverage, type design, and code simplification. Confidence scores, exploit PoCs, attack chain detection, defense depth scoring per network layer, blast radius assessment, security score tracking, baseline diffing, and auto-fix with regression tests. Integrates with .claude/agents/ team definitions when available.
 ---
 
+## Codex Compatibility
+
+When this skill runs inside Codex, obey the active Codex system/developer instructions above this skill. In particular:
+
+- Do not spawn subagents unless the user explicitly asked for subagents, delegation, or parallel agent work in the current task. If subagents are not authorized, run the same checklist directly in the main context and keep the report scoped.
+- Use the available Codex agent roles and tools instead of Claude-specific model names, slash commands, or `run_in_background` syntax. Treat `Opus`/`Haiku` labels as intent hints for reasoning depth, not literal model requirements.
+- Never SSH, run destructive commands, or touch external infrastructure unless the current user request and repository instructions authorize it.
+- Preserve the same output guarantees: evidence, file:line references, confidence, exploitability notes for HIGH+, remediation, tests, and follow-up verification.
+
 # Red Team Security Sweep
 
 Pentagon-grade security audit. ZERO gaps acceptable.
